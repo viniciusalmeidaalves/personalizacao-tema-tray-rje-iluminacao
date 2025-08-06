@@ -4,6 +4,8 @@
 
 Este repositório contém todas as personalizações e melhorias de código (HTML e CSS) aplicadas ao tema padrão da loja RJE Iluminação, hospedada na plataforma Tray Commerce. O objetivo deste projeto é aprimorar a experiência do usuário (UX), fortalecer a identidade visual e adicionar funcionalidades estratégicas para aumentar a confiança e a conversão.
 
+Essa implementação também eliminou o custo de aquisição de um novo tema no valor de R$ 846,00 
+
 ---
 
 ## Funcionalidades Implementadas
