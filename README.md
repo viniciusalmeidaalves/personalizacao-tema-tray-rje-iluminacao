@@ -45,5 +45,14 @@ Abaixo estão as principais alterações realizadas, com o objetivo de moderniza
 -   `assets/css/main.css` (ou campo "Editar CSS"): Onde todos os estilos personalizados foram adicionados.
 
 ---
+Página inicial do e-commerce, visivel o botão "NOSSA LOJA DE NATAL" e Politicas de Privacidade e Cookies
+<img width="1280" height="984" alt="image" src="https://github.com/user-attachments/assets/821aba64-546b-4cf6-aa43-ea0812bbced2" />
 
-*Este projeto foi desenvolvido em colaboração com o Parceiro de Programação da Google.*
+## Tecnologias
+
+-   **HTML5**
+-   **CSS3**
+-   **JavaScript (ES6)**
+-   **Liquid (Tray Commerce)**
+
+*As personalizações deste tema foram implementadas com o auxílio da ferramenta de IA para desenvolvedores do Google.*
