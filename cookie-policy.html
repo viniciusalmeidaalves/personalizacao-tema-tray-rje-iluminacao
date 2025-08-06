@@ -1,0 +1,65 @@
+<div id="cookie-policy-banner" class="cookie-banner" style="display: none;">
+    <div class="cookie-content">
+        <div class="cookie-text">
+            <p>Este site utiliza cookies para melhorar sua experiência de navegação. Ao continuar navegando, você concorda com nossa <a href="/politica-de-privacidade" target="_blank">Política de Privacidade</a> e o uso de cookies.</p>
+        </div>
+        <div class="cookie-buttons">
+            <button id="accept-cookies" class="cookie-btn accept">Aceitar</button>
+            <button id="reject-cookies" class="cookie-btn reject">Recusar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // Verifica se o usuário já fez uma escolha sobre cookies
+    function getCookieConsent() {
+        return localStorage.getItem('cookieConsent');
+    }
+    
+    // Define a escolha do usuário
+    function setCookieConsent(consent) {
+        localStorage.setItem('cookieConsent', consent);
+    }
+    
+    // Mostra o banner de cookies
+    function showCookieBanner() {
+        document.getElementById('cookie-policy-banner').style.display = 'block';
+    }
+    
+    // Esconde o banner de cookies
+    function hideCookieBanner() {
+        document.getElementById('cookie-policy-banner').style.display = 'none';
+    }
+    
+    // Inicializa o banner de cookies
+    function initCookieBanner() {
+        var consent = getCookieConsent();
+        
+        if (!consent) {
+            // Se não há consentimento salvo, mostra o banner
+            showCookieBanner();
+        }
+        
+        // Event listeners para os botões
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            setCookieConsent('accepted');
+            hideCookieBanner();
+            // Aqui você pode adicionar código para ativar cookies de terceiros, se necessário
+        });
+        
+        document.getElementById('reject-cookies').addEventListener('click', function() {
+            setCookieConsent('rejected');
+            hideCookieBanner();
+            // Aqui você pode adicionar código para desativar cookies de terceiros, se necessário
+        });
+    }
+    
+    // Aguarda o DOM estar pronto para executar o script
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCookieBanner);
+    } else {
+        initCookieBanner();
+    }
+})();
+</script>

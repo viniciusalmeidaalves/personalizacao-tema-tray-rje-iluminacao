@@ -1,0 +1,187 @@
+<nav class="nav">
+    <div class="container">
+        <ul class="list level-primary flex">
+
+            {% if categories|length >= 8 %}
+            <li class="{{ categories|length > 4 ? 'flex-grow' : 'padding' }} subs no-relative">
+                <a class="t-color" href="#">                    
+                    Departamentos<i aria-hidden class="icon icon-down-mini"></i>
+                </a>
+
+                <div class="box-sub flex" data-lenght="{{ categories|length - 7 }}">
+                    
+                    <ul class="level-second flex {{ (categories|length - 7) > 4 ? 'f-wrap'}}">
+                        {% for category in categories %}
+                        {% if loop.index >= 8 %}
+                        <li class="{{ category.children ? 'sub'}}" data-category-id="{{ category.id }}">
+                            <a class="t-color uppercase" href="{{ category.link }}">{{ category.name }}</a>
+                            {% if category.children %}
+                            <ul class="level-third">
+                                {% for level2 in category.children %}
+                                <li data-category-id="{{ level2.id }}">
+                                    <a class="t-color" href="{{ level2.link }}">{{ level2.name }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </li>
+                         {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </li>
+
+            {% for category in categories %}
+                {% if loop.index <= 7 %}
+               
+                <li class="{{ categories|length > 4 ? 'flex-grow' : 'padding' }} {{ category.children ? 'subs'}} {{category.children|length > 4 ? 'no-relative'}}" data-category-id="{{ category.id }}">
+                    
+                    <a class="t-color" href="{{ category.link }}">
+                        {% if category.images %}
+                        <img src="{{ category.images[0] }}" alt="{{ category.name }}">        
+                        {% endif %}
+                        <span>{{ category.name }}{{ category.children ? '<i aria-hidden class="icon icon-down-mini"></i>' : ''}}</span>
+                    </a>
+
+                    {% if category.children %}
+                    {% set level2 = category.children %}
+                    <div class="box-sub flex" data-lenght="{{level2|length}}">
+
+                        <div class="alinha-menu flex ">
+                            {% if settings.product_show_nav == '1' %}
+                                {% set productCategory = Products({ 'filter': ['featured', 'available'], 'limit': 1, 'order': {'quantity_sold': 'desc'}, categories: category.id }) %}
+                            {% endif %}
+                            
+                            {% if settings.product_show_nav == '2' %}
+                                {% set productCategory = Products({ 'filter': ['featured', 'available','new'], 'limit': 1, 'order': {'quantity_sold': 'desc'}, categories: category.id }) %}
+                            {% endif %}
+                            
+                            {% if settings.product_show_nav == '3' %}
+                                {% set productCategory = Products({ 'filter': ['featured','new', 'available'], 'limit': 1, 'order': 'rand', categories: category.id }) %}
+                            {% endif %}
+                             
+                            {% if settings.product_show_nav == '4' %}
+                                {% set productCategory = Products({ 'filter': ['new', 'available'], 'limit': 1, 'order': {'quantity_sold': 'desc'}, categories: category.id }) %}
+                            {% endif %}
+                            
+                            {% if productCategory and settings.product_nav %}
+                            <div class="product-nav">
+                                {% element 'show-nav' { "products": productCategory } %}
+                            </div>
+                            {% endif %}
+
+                            <ul class="level-second flex {{level2|length > 4 ? 'f-wrap'}}">
+                                {% for level2 in level2 %}
+
+                                    <li class="{{ level2.children ? 'sub'}}" data-category-id="{{ level2.id }}">
+                                        <a class="t-color uppercase" href="{{ level2.link }}">
+                                            {% if level2.images|length > 0 %}
+                                            <img src="{{ level2.images[0] }}" alt="{{ level2.name }}" />
+                                            {% endif %} 
+                                            <span>{{ level2.name }}</span>
+                                        </a>
+                                        {% if level2.children %}
+                                        <ul class="level-third">
+                                            {% for level3 in level2.children %}
+                                            <li data-category-id="{{ level3.id }}">
+                                                <a class="t-color" href="{{ level3.link }}">{{ level3.name }}</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+
+                                    </li>                                     
+
+                                {% endfor %}
+                            </ul>                            
+
+                        </div>
+
+                    </div>    
+                    {% endif %}
+
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% else %}
+                {% for category in categories %}
+                <li class="{{ categories|length > 4 ? 'flex-grow' : 'padding' }} {{ category.children ? 'subs'}} {{category.children|length > 4 ? 'no-relative'}}" data-category-id="{{ category.id }}">
+                    
+                    <a class="t-color" href="{{ category.link }}">
+                        {% if category.images %}
+                        <img src="{{ category.images[0] }}" alt="{{ category.name }}">        
+                        {% endif %}
+                        <span>{{ category.name }}{{ category.children ? '<i aria-hidden class="icon icon-down-mini"></i>' : ''}}</span>
+                    </a>
+
+                    {% if category.children %}
+                    {% set level2 = category.children %}
+                    <div class="box-sub flex" data-lenght="{{level2|length}}">
+                        
+                        <div class="alinha-menu flex">
+                            {% if settings.product_show_nav == '1' %}
+                                {% set productCategory = Products({ 'filter': ['featured', 'available'], 'limit': 1, 'order': {'quantity_sold': 'desc'}, categories: category.id }) %}
+                            {% endif %}
+                            
+                            {% if settings.product_show_nav == '2' %}
+                                {% set productCategory = Products({ 'filter': ['featured', 'available','new'], 'limit': 1, 'order': {'quantity_sold': 'desc'}, categories: category.id }) %}
+                            {% endif %}
+                            
+                            {% if settings.product_show_nav == '3' %}
+                                {% set productCategory = Products({ 'filter': ['featured','new', 'available'], 'limit': 1, 'order': ['rand'], categories: category.id }) %}
+                            {% endif %}
+                             
+                            {% if settings.product_show_nav == '4' %}
+                                {% set productCategory = Products({ 'filter': ['new', 'available'], 'limit': 1, 'order': {'quantity_sold': 'desc'}, categories: category.id }) %}
+                            {% endif %}
+                            
+                            {% if productCategory and settings.product_nav %}
+                            <div class="product-nav">
+                                {% element 'show-nav' { "products": productCategory } %}
+                            </div>
+                            {% endif %}
+
+                            <ul class="level-second flex {{level2|length > 4 ? 'f-wrap'}}">
+                                {% for level2 in level2 %}
+                                    
+                                    <li class="{{ level2.children ? 'sub'}}" data-category-id="{{ level2.id }}">
+                                        <a class="t-color uppercase" href="{{ level2.link }}">
+                                            {% if level2.images|length > 0 %}
+                                            <img src="{{ level2.images[0] }}" alt="{{ level2.name }}" />
+                                            {% endif %} 
+                                            <span>{{ level2.name }}</span>
+                                        </a>
+                                        {% if level2.children %}
+                                        <ul class="level-third">
+                                            {% for level3 in level2.children %}
+                                            <li data-category-id="{{ level3.id }}">
+                                                <a class="t-color" href="{{ level3.link }}">{{ level3.name }}</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+
+                                    </li>                                     
+
+                                {% endfor %}
+                            </ul>                   
+
+                        </div>    
+
+                    </div>
+                    {% endif %}
+
+                </li>
+                {% endfor %}
+            {% endif %}
+            
+            <li class="tudo-natal-link">
+                <a href="https://www.tudonatal.com.br" target="_blank" class="tudo-natal-btn">
+                    NOSSA LOJA DE NATAL
+                </a>
+            </li>
+        </ul>     
+    </div>
+</nav>
